@@ -1,4 +1,3 @@
-//How do we declare variables with classes?? Let and const not available anymore?
 let currentDate = new Date();
 let currentYear = currentDate.getFullYear();
 //console.log(currentYear);
@@ -10,45 +9,10 @@ class User {
         this.age = age;
     }
 
-    set firstName(value) {
-        if (!value) {
-            console.log('First name cannot be empty');
-            return;
-        }
-        this._firstName = value;
-    }
-
-    set lastName(value) {
-        if (!value) {
-            console.log('Last name cannot be empty');
-            return;
-        }
-        this._lastName = value;
-    }
-
-    set age(value) {
-        if (!value) {
-            console.log('Age cannot be empty');
-            return;
-        }
-        this._age = value;
-    }
-
-    get firstName() {
-        return this._firstName;
-    }
-
-    get lastName() {
-        return this._lastName;
-    }
-
-    get age() {
-        return this._age;
-    }
-
     get birthYear() {
-        let birthYear = currentYear - this.age;
-//        console.log(birthYear);
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const birthYear = currentYear - this.age;
         return birthYear;
     }
 
@@ -65,39 +29,8 @@ class Teacher extends User {
         this.yearsOfExperience = yearsOfExperience;
     }
 
-    set groups(value) {
-        if (!value) {
-            console.log('Groups cannot be empty');
-            return;
-        }
-        this._groups = value;
-    }
-
-    set yearsOfExperience(value) {
-        if (!value) {
-            console.log('Years of experience cannot be empty');
-            return;
-        }
-        this._yearsOfExperience = value;
-    }
-
-    get groups() {
-        return this._groups;
-    }
-
-    get yearsOfExperience() {
-        return this._yearsOfExperience;
-    }
-
     isGroupTeacher(groupName) {
-//        console.log(groupName);
-//        console.log(this.groups);
-//        console.log(this.groups.some((data) => data.includes(groupName)));
-        if (this.groups.some((groupArray) => groupArray.includes(groupName))) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.groups.includes(groupName);
     }
 }
 
@@ -110,37 +43,9 @@ class Student extends User {
         this.averageGrade = averageGrade;        
     }
 
-    set group(value) {
-        if (!value) {
-            console.log('Group cannot be empty');
-            return;
-        }
-        this._group = value;
-    }
-
-    set averageGrade(value) {
-        if (!value) {
-            console.log('Average grade cannot be empty');
-            return;
-        }
-        this._averageGrade = value;
-    }
-
-    get group() {
-        return this._group;
-    }
-
-    get averageGrade() {
-        return this._averageGrade;
-    }
 
     isEligibleForScholarship() {
-//        console.log(Student.MIN_GRADE_FOR_SCHOLARSHIP);
-        if (this._averageGrade <= Student.MIN_GRADE_FOR_SCHOLARSHIP) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.averageGrade >= Student.MIN_GRADE_FOR_SCHOLARSHIP;
     }
 }
 
@@ -152,9 +57,7 @@ const student2 = new Student('Leonardo', 'DiCaprio', 49, '62c', 3.9);
 console.log(student1.fullName); // Tom Cruise
 console.log(student2.birthYear); // 1975
 console.log(student1.isEligibleForScholarship()); // true
-//Why is it true? Student 1 grade is worse than 4
 console.log(student2.isEligibleForScholarship()); // false
-//Why is it false? Student 2 grade is better than 4
 console.log(teacher1.isGroupTeacher(student1.group)); // true
 console.log(teacher1.isGroupTeacher(student2.group)); // false
 console.log(Student.MIN_GRADE_FOR_SCHOLARSHIP); // 4
